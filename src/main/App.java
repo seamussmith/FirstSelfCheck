@@ -23,9 +23,13 @@ public class App
         while (!nums.isEmpty())
         {
             var get = nums.get(0);
-            System.out.println(Math.sqrt(get) == Math.sqrt(max));
             primes.add(get);
             nums.removeIf(n -> n % get == 0);
+            if (get > Math.sqrt(nums.getLast()))
+            {
+                primes.addAll(nums);
+                break;
+            }
         }
 
         return primes;
