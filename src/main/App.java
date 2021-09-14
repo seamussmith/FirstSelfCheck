@@ -9,15 +9,25 @@ public class App
     {
         System.out.println(primeSieve(100));
     }
-    static int[] primeSieve(int upTo)
+    static List<Integer> primeSieve(int upTo)
     {
-        var primes = new HashSet<Integer>();
-        var max = upTo - (upTo % 2 == 0 ? 1 : 0);
-        var nums = IntStream.rangeClosed(2, upTo)
+        var primes = new ArrayList<Integer>();
+        var nums = new LinkedList<>(
+            IntStream.rangeClosed(2, upTo)
             .boxed()
             .filter(i -> i % 2 != 0 || i == 2)
-            .toList();
-        System.out.println(nums);
-        return null;
+            .toList()
+            );
+        var max = nums.getLast();
+
+        while (!nums.isEmpty())
+        {
+            var get = nums.get(0);
+            System.out.println(Math.sqrt(get) == Math.sqrt(max));
+            primes.add(get);
+            nums.removeIf(n -> n % get == 0);
+        }
+
+        return primes;
     }
 }
